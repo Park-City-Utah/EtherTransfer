@@ -1,15 +1,38 @@
 pragma solidity ^0.4.0;
 
 contract EtherTransferTo {
-    function () public payable{
-        
+     //fallback - accepts payment
+    function () public payable {       
     }
-    
+    //return balance of To address
     function getBalance() public returns (uint) {
         return address(this).balance;
     }
 }
 
 contract EtherTranferFrom {
+    //Instantiate creates an instance of this, so it has an address
+    EtherTransferTo private _instance;
     
+    //Constructor
+    function EtherTransferFrom() public{
+        //_instance = EtherTransferTo(address(this));   //if you know address, pre-existing
+        _instance = new EtherTransferTo();              //creates new To instance
+    }
+    
+    //Get balance of 
+    function getBalance() public returns(unint){
+        return address(this).balance;
+    }
+    
+    //
+    function getBalanceOfInstance() public returns (uint){
+        //return address(_instance).balance;
+        return _instance.getBalance();
+    }
+    
+    //Anytime ether sent to From, sends on to instance of To
+    function () public payable {
+        address(_instance).sending(msg.value);  //msg knows how much sent(value)
+    }
 }
