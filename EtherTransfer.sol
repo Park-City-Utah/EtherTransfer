@@ -10,7 +10,7 @@ contract EtherTransferTo {
     }
 }
 
-contract EtherTranferFrom {
+contract EtherTransferFrom {
     //Instantiate creates an instance of this, so it has an address
     EtherTransferTo private _instance;
     
@@ -21,7 +21,7 @@ contract EtherTranferFrom {
     }
     
     //Get balance of 
-    function getBalance() public returns(unint){
+    function getBalance() public returns(uint){
         return address(this).balance;
     }
     
@@ -33,6 +33,6 @@ contract EtherTranferFrom {
     
     //Anytime ether sent to From, sends on to instance of To
     function () public payable {
-        address(_instance).sending(msg.value);  //msg knows how much sent(value)
+        address(_instance).send(msg.value);  //msg knows how much sent(value)
     }
 }
