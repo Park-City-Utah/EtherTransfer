@@ -31,8 +31,8 @@ contract EtherTransferFrom {
         return _instance.getBalance();
     }
     
-    //Anytime ether sent to From, sends on to instance of To
+    //Anytime ether sent to From, sends half on to instance of To, From will retain half
     function () public payable {
-        address(_instance).send(msg.value);  //msg knows how much sent(value)
+        address(_instance).send(msg.value/2);  //msg knows how much sent(value)
     }
 }
